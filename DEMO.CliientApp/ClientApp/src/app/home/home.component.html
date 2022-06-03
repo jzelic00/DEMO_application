@@ -1,0 +1,66 @@
+<h1>Demo application</h1>
+<br />
+<br />
+<div>
+  <h3 align="center">Add new contact</h3>
+  <br />
+  <div class="form-group">
+  <div class="form-group row">
+    <div class="col-4" align="right">
+      <label>Name</label>
+    </div>
+    <div class="col-5">
+      <input class="form-control" type="text" [(ngModel)]="contact.name" />
+    </div>
+
+  </div>
+  <div class="form-group row">
+    <div class="col-4" align="right">
+      <label>Lastname</label>
+    </div>
+    <div class="col-5">
+      <input class="form-control" type="text" [(ngModel)]="contact.lastName" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-4" align="right">
+      <label>Phone number </label>
+    </div>
+    <div class="col-5">
+      <input class="form-control" type="number" [(ngModel)]="contact.number" />
+    </div>
+  </div>
+  <div style="text-align:center">
+    <button align="right" class="btn btn-primary" [disabled]="(!contact.name || !contact.name==='') || (!contact.lastName==='' || !contact.lastName) || (contact.number==='' || !contact.number)" (click)='saveContact(contact)'>Save</button>
+  </div>
+    </div>
+</div>
+
+<br />
+<br />
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>Send</th>
+      <th>Name</th>
+      <th>Lastname</th>
+      <th>Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contact of allContacts">
+     <td><input #checkboxes type="checkbox" (change)="addContactToMessageList($event,contact)"/></td>
+      <td>{{ contact.name }}</td>
+      <td>{{ contact.lastName }}</td>
+      <td>{{ contact.number }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="form-group">
+  <label>SMS message, max 160 symbols, you still can enter {{160-message.length}}</label>
+  <textarea class="form-control" id="message" name="message" rows="4" [(ngModel)]="message"></textarea>
+  <p class="alert alert-danger" *ngIf="message.length>160">You enter more than 160 symbols!</p>
+  <br />
+  <button align="centar" class="btn btn-primary" [disabled]="(message.length>160 || message.length===0) || sendMessageTo.length===0" (click)="sendMessage(message)">Send</button>
+</div>
